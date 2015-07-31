@@ -15,9 +15,9 @@
 		</div>
 
 		<div class="col-md-4">
-			<form action="dados_sql.php" enctype="multipart/form-data" method="post"> 
-			  	<div class="form-group">
-			    	<div class="alert alert-success" role="alert">
+			<form action="dados_sql.php" enctype="multipart/form-data" method="post">
+	            <div class="form-group">
+	            	<div class="alert alert-success" role="alert">
 			    		Escreva o conteúdo do seu email abaixo
 			    	</div>
 			    	Selecione o grupo: 
@@ -30,13 +30,18 @@
 				     }
 				     ?>
 				     </select>
-				     <br>
-			    	<textarea class="form-control" name="conteudo" style="width:100%;" rows="10" required autofocus></textarea>
-			  	</div>
-			  		<button type="submit" class="btn btn-primary">Enviar <i class="fa fa-paper-plane-o"></i></button>
-			</form>
-		</div>
+	                <br>
+		    		<textarea class="form-control" name="conteudo" style="width:100%;" rows="10" required autofocus></textarea>
+	            </div>
+	            <div align="left" class="modal-footer">
+		            <button type="submit" class="btn btn-primary">Enviar <i class="fa fa-paper-plane-o"></i></button>
 
+		            <input type=hidden name="comando" value="enviar">
+		          	<input type=hidden name="codprocesso" value="<?php echo $codpessoaatual; ?>">
+		          	<input type=hidden name="codprocesso" value="<?php echo $codprocesso; ?>">
+		        </div>
+		    </form>
+		</div>
 		<div class="col-md-4"></div>
 	</div>
 </body>

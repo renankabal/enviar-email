@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="col-md-4">
-			<form action="dados_sql.php" enctype="multipart/form-data" method="post">
+			<form action="dados_sql.php" method="post" value="enviar">
 	            <div class="form-group">
 	            	<div class="alert alert-success" role="alert">
 			    		Escreva o conteúdo do seu email abaixo
@@ -31,14 +31,12 @@
 				     ?>
 				     </select>
 	                <br>
-		    		<textarea class="form-control" name="conteudo" style="width:100%;" rows="10" required autofocus></textarea>
+		    		<textarea class="form-control" name="message" style="width:100%;" rows="10" required autofocus></textarea>
 	            </div>
 	            <div align="left" class="modal-footer">
 		            <button type="submit" class="btn btn-primary">Enviar <i class="fa fa-paper-plane-o"></i></button>
 
 		            <input type=hidden name="comando" value="enviar">
-		          	<input type=hidden name="codprocesso" value="<?php echo $codpessoaatual; ?>">
-		          	<input type=hidden name="codprocesso" value="<?php echo $codprocesso; ?>">
 		        </div>
 		    </form>
 		</div>

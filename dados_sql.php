@@ -7,10 +7,10 @@
 	#Envia email
 	case 'enviar':
         #PHPMail
-		ob_start();
+        		// ob_start();
         require('public/email/email.php');
-		    $email = ob_get_contents();
-        ob_end_clean();
+		// $email = ob_get_contents();
+        // ob_end_clean();
 
         $confirmacao = enviarEmail(
                             
@@ -28,7 +28,7 @@
                                         'email' => 'renan@proesc.com',
                                         'nome' => 'Renan'),
                                         'Renan',
-                              $email,
+                                'dadasddadasda',
                                array(
                                         'servidor' => 'smtp.proesc.com.br',
                                         'usuario' => 'renan@proesc.com',

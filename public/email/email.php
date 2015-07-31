@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__ . '/../PHPMailer/class.phpmailer.php';
 
-function enviarEmail(array $destinatario = array('email' => '', 'nome' => ''), $remetente = array('email' => '', 'nome' => ''), $assunto, $corpo, $smtp = array ('servidor' => 'smtp.proesc.com.br', 'usuario' => '', 'senha' => '')){
-    $email = new PHPMailer();
-    $email->SMTPSecure = "tls";
+function enviarEmail(){
+        $email = new PHPMailer();
+        $email->SMTPSecure = "tls";
         $email->IsSMTP();                     # Enviar via SMTP
         $email->Host = $smtp['servidor'];     #Seta o SMTP
         $email->SMTPAuth = true;              #Seta SMTP autenticado

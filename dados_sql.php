@@ -15,44 +15,44 @@
         // exit();
 		$usuario = 'renan@proesc.com';
 		$senha = 'sucesso@2014';
+
+		$Host = 'smtp.proesc.com';
+		$Username = $usuario;
+		$Password = $senha;
+		$Port = "587";
 		#Pega os email diretamente do BD
 		$sql_email = "SELECT * FROM email WHERE codgrupoemail=$codgrupoemail and enviado <>'s'";
 		$cons_email = pg_query($sql_email);
-		
+
+		$mail = new PHPMailer();
+		$mail->IsSMTP(); // telling the class to use SMTP
+		$mail->Host = $Host; // SMTP server
+		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
+
+		// 1 = errors and messages
+		// 2 = messages only
+		$mail->SMTPAuth = true; // enable SMTP authentication
+		$mail->Port = $Port; // set the SMTP port for the service server
+		$mail->Username = $Username; // account username
+		$mail->Password = $Password; // account password
+
+		$mail->SetFrom($usuario, $nomeDestinatario);
+		$mail->Subject = $assunto;
+		$mail->MsgHTML($message);
 		#Passei fisicamente, mas pode ser passada atravéz de variável
-		while ($lista_email = pg_fetch_object($cons_email)) {
-			$destinatarios = $lista_email->email;
-
-			$Host = 'smtp.proesc.com';
-			$Username = $usuario;
-			$Password = $senha;
-			$Port = "587";
-
-			$mail = new PHPMailer();
-			$mail->IsSMTP(); // telling the class to use SMTP
-			$mail->Host = $Host; // SMTP server
-			$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
-			// 1 = errors and messages
-			// 2 = messages only
-			$mail->SMTPAuth = true; // enable SMTP authentication
-			$mail->Port = $Port; // set the SMTP port for the service server
-			$mail->Username = $Username; // account username
-			$mail->Password = $Password; // account password
-
-			$mail->SetFrom($usuario, $nomeDestinatario);
-			$mail->Subject = $assunto;
-			$mail->MsgHTML($message);
-			$mail->AddAddress($destinatarios);
+		while ($coluna = pg_fetch_array($cons_email)) {
+			$email_atual = $coluna[email];			
+			$mail->ClearAddresses();
+			$mail->AddAddress("$email_atual");
 
 			if(!$mail->Send()) {
 				$mensagemRetorno = 'Erro ao enviar e-mail: '. print($mail->ErrorInfo);
-				exit();
 			} else {
+				pg_query("UPDATE email SET enviado='s' WHERE codemail = $coluna[codemail]");
 				$mensagemRetorno = 'E-mail enviado com sucesso!';
-				pg_query("UPDATE email SET enviado='s' WHERE codemail = $lista_email->codemail");
 		        #redireciona para a pagina da index
-		        header("location:sucesso.php");
-		    	break;
+		     //    header("location:sucesso.php");
+		    	// break;
 			}
 		}
     }

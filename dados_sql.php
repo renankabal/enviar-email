@@ -1,60 +1,59 @@
 <?php
-
-   include_once('public/conexao.php');
+	ini_set('display_errors','On');
+   	include_once('public/conexao.php');
 
    switch ($comando)
    {
 	#Envia email
 	case 'enviar':
         #PHPMail
-        		// ob_start();
-        require('public/email/email.php');
-		// $email = ob_get_contents();
-        // ob_end_clean();
+		include_once('public/phpmailer/class.phpmailer.php');
+        include_once('public/phpmailer/PHPMailerAutoload.php');
+        // echo $message;
+		// echo $codgrupoemail;
+		$assunto = 'Proesc Educacional';
+        // exit();
+		$usuario = 'renan@proesc.com';
+		$senha = 'sucesso@2014';
+		#Pega os email diretamente do BD
+		$sql_email = "SELECT * FROM email WHERE codgrupoemail=$codgrupoemail and enviado <>'s'";
+		$cons_email = pg_query($sql_email);
+		
+		#Passei fisicamente, mas pode ser passada atravéz de variável
+		while ($lista_email = pg_fetch_object($cons_email)) {
+			$destinatarios = $lista_email->email;
 
-        $confirmacao = enviarEmail(
-                            
-                                #primeiro parametro -> destinatÃ¡rio,
-                                #segundo parametro  -> remetente,
-                                #terceiro parametro -> assunto,
-                                #quarto parametro -> corpo,
-                                #quinto parametro -> smtp do remetente, usuario, e senha
-                                #confirmação de resposta
-                                array(
-                                        'email' =>  'renan@proesc.com', 
-                                        'nome'   =>  'Renan jhonatha'
-                                    ),
-                               array(
-                                        'email' => 'renan@proesc.com',
-                                        'nome' => 'Renan'),
-                                        'Renan',
-                                'dadasddadasda',
-                               array(
-                                        'servidor' => 'smtp.proesc.com.br',
-                                        'usuario' => 'renan@proesc.com',
-                                        'senha' => 'sucesso@2014'
-                                    ),
-                               array(
-                                        'confirmacao'   =>  false,
-                                        'email' =>  ''
-                                    )
-);
-                #Se mandar ou não
+			$Host = 'smtp.proesc.com';
+			$Username = $usuario;
+			$Password = $senha;
+			$Port = "587";
 
-                 if($confirmacao)
-                 {
-                    #html do email enviado
-                    #$email;
-                 
-                 }else{
-                    echo "<script>";
-                    echo "alert('O e-mail não foi enviado!');";
-                    echo "location.replace('index.php');";
-                    echo "</script>";
-                 }
+			$mail = new PHPMailer();
+			$mail->IsSMTP(); // telling the class to use SMTP
+			$mail->Host = $Host; // SMTP server
+			$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
+			// 1 = errors and messages
+			// 2 = messages only
+			$mail->SMTPAuth = true; // enable SMTP authentication
+			$mail->Port = $Port; // set the SMTP port for the service server
+			$mail->Username = $Username; // account username
+			$mail->Password = $Password; // account password
 
-        #redireciona para a pagina de edicao
-        header("location:sucesso.php");
-    	break;
+			$mail->SetFrom($usuario, $nomeDestinatario);
+			$mail->Subject = $assunto;
+			$mail->MsgHTML($message);
+			$mail->AddAddress($destinatarios);
+
+			if(!$mail->Send()) {
+				$mensagemRetorno = 'Erro ao enviar e-mail: '. print($mail->ErrorInfo);
+				exit();
+			} else {
+				$mensagemRetorno = 'E-mail enviado com sucesso!';
+				pg_query("UPDATE email SET enviado='s' WHERE codemail = $lista_email->codemail");
+		        #redireciona para a pagina da index
+		        header("location:sucesso.php");
+		    	break;
+			}
+		}
     }
 ?>

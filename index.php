@@ -5,7 +5,7 @@
 	include('public/conexao.php');
 
 	#pega informações dos grupos de email
-	$sql_gruposemail = "SELECT codgrupoemail, grupoemail FROM gruposemail WHERE codgrupoemail=3 ORDER BY grupoemail ASC";
+	$sql_gruposemail = "SELECT codgrupoemail, grupoemail FROM gruposemail ORDER BY grupoemail ASC";
 	$cons_gruposemail = pg_query($sql_gruposemail);
 ?>
 <body>
@@ -31,6 +31,9 @@
 				     ?>
 				     </select>
 	                <br>
+	                Assunto: 
+	                <input type="text" class="form-control" name="assunto" placeholder="Assunto da menssagem" value="Atenção!" required><br>
+		    		Conteúdo:
 		    		<textarea class="form-control" name="message" style="width:100%;" rows="10" required autofocus></textarea>
 	            </div>
 	            <div align="left" class="modal-footer">

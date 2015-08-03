@@ -11,15 +11,15 @@
         include_once('public/phpmailer/PHPMailerAutoload.php');
         // echo $message;
 		// echo $codgrupoemail;
-		$assunto = 'Proesc Educacional';
+		// echo $assunto;
         // exit();
-		$usuario = 'renan@proesc.com';
-		$senha = 'sucesso@2014';
+		$usuario = '*******';//seu e-mail
+		$senha = '******'; //sua senha
 
-		$Host = 'smtp.proesc.com';
+		$Host = 'smtp.***.com';// *** seu provedor
 		$Username = $usuario;
 		$Password = $senha;
-		$Port = "587";
+		$Port = "587";//porta
 		#Pega os email diretamente do BD
 		$sql_email = "SELECT * FROM email WHERE codgrupoemail=$codgrupoemail and enviado <>'s'";
 		$cons_email = pg_query($sql_email);
@@ -54,6 +54,8 @@
 		     //    header("location:sucesso.php");
 		    	// break;
 			}
+			// $mail->SmtpClose();
+			// sleep(15);
 		}
     }
 ?>

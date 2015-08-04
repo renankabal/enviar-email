@@ -13,13 +13,13 @@
 		// echo $codgrupoemail;
 		// echo $assunto;
         // exit();
-		$usuario = '*******';//seu e-mail
-		$senha = '******'; //sua senha
+		$usuario = '****';
+		$senha = '*****';
 
-		$Host = 'smtp.***.com';// *** seu provedor
+		$Host = 'smtp.****.com';
 		$Username = $usuario;
 		$Password = $senha;
-		$Port = "587";//porta
+		$Port = "587";
 		#Pega os email diretamente do BD
 		$sql_email = "SELECT * FROM email WHERE codgrupoemail=$codgrupoemail and enviado <>'s'";
 		$cons_email = pg_query($sql_email);
@@ -51,7 +51,7 @@
 				pg_query("UPDATE email SET enviado='s' WHERE codemail = $coluna[codemail]");
 				$mensagemRetorno = 'E-mail enviado com sucesso!';
 		        #redireciona para a pagina da index
-		     //    header("location:sucesso.php");
+		     	header("location:index.php?envio=$codgrupoemail");
 		    	// break;
 			}
 			// $mail->SmtpClose();

@@ -1,6 +1,6 @@
-E-Mail Bomba
+E-Mail (envio para grupo)
 =========
-Cadastro de grupos e email's, para posterior envio imediato de mensagem para todos os e-mail do grupo selecionado.
+Envio de email's para grupos, envio imediato de mensagem para todos os e-mail's do grupo selecionado.
 ![alt tag](https://github.com/renankabal/enviar-email-bomba/blob/master/imagens/index.png)
 
 Configuração

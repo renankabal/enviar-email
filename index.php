@@ -4,8 +4,8 @@
 	include('layouts/head.php');
 	include('public/conexao.php');
 
-	#pega informações dos grupos de email
-	$sql_gruposemail = "SELECT codgrupoemail, grupoemail FROM gruposemail WHERE codgrupoemail=3 ORDER BY grupoemail ASC";
+	#pega informaÃ§Ãµes dos grupos de email
+	$sql_gruposemail = "SELECT codgrupoemail, grupoemail FROM gruposemail ORDER BY grupoemail ASC";
 	$cons_gruposemail = pg_query($sql_gruposemail);
 ?>
 <body>
@@ -18,7 +18,7 @@
 			<form action="dados_sql.php" method="post" value="enviar">
 	            <div class="form-group">
 	            	<div class="alert alert-success" role="alert">
-			    		Escreva o conteúdo do seu email abaixo
+			    		Escreva o conteÃºdo do seu email abaixo
 			    	</div>
 			    	Selecione o grupo: 
 			    	<select class="form-control" name="codgrupoemail">
@@ -32,8 +32,8 @@
 				     </select>
 	                <br>
 	                Assunto: 
-	                <input type="text" class="form-control" name="assunto" placeholder="Assunto da menssagem" value="Proesc, gestão educacional simples e grátis para sua escola" required><br>
-		    		Conteúdo:
+	                <input type="text" class="form-control" name="assunto" placeholder="Assunto da menssagem" value="Proesc, gestÃ£o educacional simples e grÃ¡tis para sua escola" required><br>
+		    		ConteÃºdo:
 		    		<textarea class="form-control" name="message" style="width:100%;" rows="10" required autofocus></textarea>
 	            </div>
 	            <div align="left" class="modal-footer">
